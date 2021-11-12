@@ -1,13 +1,13 @@
 from setuptools import setup
 
-from ssl_metrics_github_issues import version
+from ssl_metrics_github_issue_spoilage import version
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="ssl-metrics-github-issues",
-    packages=["ssl_metrics_github_issues"],
+    name="ssl-metrics-github-issue_spoilage",
+    packages=["ssl_metrics_github_issue_spoilage"],
     version=version.version(),
     description="SSL Metrics - GitHub Issues Analysis",
     author="Software and Systems Laboratory - Loyola University Chicago",
@@ -17,8 +17,8 @@ setup(
     long_description_content_type="text/markdown",
     url="https://ssl.cs.luc.edu/projects/metricsDashboard",
     project_urls={
-        "Bug Tracker": "https://github.com/SoftwareSystemsLaboratory/ssl-metrics-github-issues/issues",
-        "GitHub Repository": "https://github.com/SoftwareSystemsLaboratory/ssl-metrics-github-issues",
+        "Bug Tracker": "https://github.com/SoftwareSystemsLaboratory/ssl-metrics-github-issue-spoilage/issues",
+        "GitHub Repository": "https://github.com/SoftwareSystemsLaboratory/ssl-metrics-github-issue-spoilage",
     },
     keywords=[
         "git",
@@ -43,8 +43,8 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "ssl-metrics-github-issues-collect = ssl_metrics_github_issues.github_issues:main",
-            "ssl-metrics-github-issues-graph = ssl_metrics_github_issues.create_graph:main",
+            "ssl-metrics-github-issue-spoilage-compute = ssl_metrics_github_issue_spoilage.main:main",
+            "ssl-metrics-github-issue-spoilage-graph = ssl_metrics_github_issue_spoilage.create_graph:main",
         ]
     },
 )
