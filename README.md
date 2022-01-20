@@ -54,10 +54,13 @@ See [Command Line Arguments](#command-line-arguments) for program configuration 
 
 ##### Note on Graph Export Options
 
-Arguements `-c`, `-o`, and `-x` can be of any of the formats that `matplotlibs.pyplot.savefig` function exports to.
+Arguements `-c`, `-o`, `-d`, and `-x` can be of any of the formats that `matplotlibs.pyplot.savefig` function exports to.
 
 - `-h`, `--help`: Shows the help menu and exits
 - `-c`, `--closed-issues-graph-filename`: The filename of the output graph of closed issues
 - `-i`, `--input`: The input JSON file that is to be used for graphing
 - `-o`, `--open-issues-graph-filename`: The filename of the output graph of open issues
 - `-x`, `--joint-issues-graph-filename`: The filename of the output graph of open and closed issues
+- `-d`, `--line-of-issues-spoilage-filename`: The filename of the output graph of spoiled issues
+- `-u`, `--upper-window-bound`: Argument to specify the max number of days to look at. NOTE: window bounds are inclusive.
+- `-l`, `--lower-window-bound`: Argument to specify the start of the window of time to analyze. NOTE: window bounds are inclusive.
