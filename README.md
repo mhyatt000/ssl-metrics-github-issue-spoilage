@@ -1,4 +1,4 @@
-# SSL Metrics GitHub Issues
+# SSL Metrics GitHub Issue Spoilage
 
 > Using the GitHub Issues REST API, provide insight into a specific GitHub repository issue tracker
 
@@ -6,7 +6,7 @@
 
 ## Table of Contents
 
-- [SSL Metrics GitHub Issues](#ssl-metrics-github-issues)
+- [SSL Metrics GitHub Issues Spoilage](#ssl-metrics-github-issues-spoilage)
   - [Table of Contents](#table-of-contents)
   - [About](#about)
   - [How to Run](#how-to-run)
@@ -37,9 +37,9 @@ See [Command Line Arguments](#command-line-arguments) for program configuration 
 
 1. Install `Python 3.9.6 +`
 2. (Recommended) Create a *virtual environment* with `python3.9 -m venv env` and *activate* it
-3. Run `pip install ssl-metrics-github-issues`
+3. Run `pip install ssl-metrics-github-issues-spoilage`
 4. Generate a JSON data set with `ssl-metrics-github-issues-collect -r REPOSITORY -t GH_TOKEN -s FILENAME.json`
-5. Generate graphs with `ssl-metrics-github-issues-graph -i FILENAME.json -o OPEN_ISSUES_GRAPH_FILENAME.* -c CLOSED_ISSUES_GRAPH_FILENAME.* -x JOINT_ISSUES_GRAPH_FILENAME`
+5. Generate graphs with `ssl-metrics-github-issues-graph -i FILENAME.json -o OPEN_ISSUES_GRAPH_FILENAME.* -c CLOSED_ISSUES_GRAPH_FILENAME.* -x JOINT_ISSUES_GRAPH_FILENAME.* -d CLOSED_ISSUES_GRAPH_FILENAME.* -u UPPER_LIMIT_INTEGER -l LOWER_LIMIT_INTEGER`
 
 ### Command Line Arguments
 
