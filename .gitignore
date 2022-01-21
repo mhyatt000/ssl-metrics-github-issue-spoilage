@@ -135,4 +135,4 @@ dmypy.json
 
 *.idea/
 !.zenodo.json
-pyvenv.cfg
+*pyvenv.cfg
