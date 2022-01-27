@@ -24,7 +24,7 @@ Currently, this project generates graphs of:
 
 - Number of open issues against days
 - Number of closed issues against days
-- Interval of time issues are open per an interval of one day
+- Length of time issues remain open throughout the lifetime of the project
 - Comparison of number of open and closed issues against days
 
 ## How to Run
