@@ -13,7 +13,6 @@
     - [Note on Command Line Arguments](#note-on-command-line-arguments)
     - [From pip](#from-pip)
     - [Command Line Arguments](#command-line-arguments)
-      - [ssl-metrics-github-issues-collect](#ssl-metrics-github-issues-collect)
       - [ssl-metrics-github-issues-graph](#ssl-metrics-github-issues-graph)
         - [Note on Graph Export Options](#note-on-graph-export-options)
 
@@ -25,6 +24,7 @@ Currently, this project generates graphs of:
 
 - Number of open issues against days
 - Number of closed issues against days
+- Length of time issues remain open throughout the lifetime of the project
 - Comparison of number of open and closed issues against days
 
 ## How to Run
@@ -39,7 +39,7 @@ See [Command Line Arguments](#command-line-arguments) for program configuration 
 2. (Recommended) Create a *virtual environment* with `python3.9 -m venv env` and *activate* it
 3. Run `pip install ssl-metrics-github-issues-spoilage`
 4. Generate a JSON data set with `ssl-metrics-github-issues-collect -r REPOSITORY -t GH_TOKEN -s FILENAME.json`
-5. Generate graphs with `ssl-metrics-github-issues-graph -i FILENAME.json -o OPEN_ISSUES_GRAPH_FILENAME.* -c CLOSED_ISSUES_GRAPH_FILENAME.* -x JOINT_ISSUES_GRAPH_FILENAME.* -d CLOSED_ISSUES_GRAPH_FILENAME.* -u UPPER_LIMIT_INTEGER -l LOWER_LIMIT_INTEGER`
+5. Generate graphs with `ssl-metrics-github-issues-graph -i FILENAME.json -o OPEN_ISSUES_GRAPH_FILENAME.* -c CLOSED_ISSUES_GRAPH_FILENAME.* -x JOINT_ISSUES_GRAPH_FILENAME.* -d SPOILED_ISSUES_GRAPH_FILENAME.* -u UPPER_LIMIT_INTEGER -l LOWER_LIMIT_INTEGER`
 
 ### Command Line Arguments
 
@@ -51,8 +51,6 @@ See [Command Line Arguments](#command-line-arguments) for program configuration 
 - `-s`, `--save-json`: Save analysis to JSON file
 
 #### ssl-metrics-github-issues-graph
-
-##### Note on Graph Export Options
 
 Arguements `-c`, `-o`, `-d`, and `-x` can be of any of the formats that `matplotlibs.pyplot.savefig` function exports to.
 

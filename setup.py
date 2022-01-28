@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="ssl-metrics-github-issue_spoilage",
+    name="ssl-metrics-github-issue-spoilage",
     packages=["ssl_metrics_github_issue_spoilage"],
     version=version.version(),
     description="SSL Metrics - GitHub Issues Analysis",
