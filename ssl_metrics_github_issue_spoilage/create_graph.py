@@ -1,13 +1,10 @@
 import json
 from argparse import ArgumentParser, Namespace
-from collections import KeysView
 from datetime import datetime
-from json import load
 from os.path import exists
 from typing import Any
 
 import matplotlib.pyplot as plt
-import numpy as np
 from dateutil.parser import parse
 from intervaltree import IntervalTree
 from matplotlib.figure import Figure
@@ -322,7 +319,7 @@ def fillDictBasedOnKeyValue(
     dictionary: dict, tree: IntervalTree, key: str, value: Any
 ) -> dict:
     data: dict = {}
-    keys: KeysView = dictionary.keys()
+    keys = dictionary.keys()
 
     maxKeyValue: int = max(keys)
     minKeyValue: int = min(keys)
