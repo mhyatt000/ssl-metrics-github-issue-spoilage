@@ -1,10 +1,11 @@
 import json
 from argparse import ArgumentParser, Namespace
-from collections import KeysView  # had to import this
+from collections import KeysView
 from datetime import datetime
 from json import load
 from os.path import exists
-from typing import Any  # had to import this
+from typing import Any
+
 import matplotlib.pyplot as plt
 import numpy as np
 from dateutil.parser import parse
@@ -72,6 +73,7 @@ def getArgparse() -> Namespace:
 
     return parser.parse_args()
 
+
 def issue_processor(filename: str) -> list:
 
     issues: list = None
@@ -116,12 +118,13 @@ def issue_processor(filename: str) -> list:
             value["closed_at_day"] = (dayN - day0).days
         else:
             value["closed_at_day"] = (
-                    parse(issue["closed_at"]).replace(tzinfo=None) - day0
+                parse(issue["closed_at"]).replace(tzinfo=None) - day0
             ).days
 
         data.append(value)
 
     return data
+
 
 # def loadJSON(filename: str) -> list:
 #     try:
@@ -196,9 +199,8 @@ def issue_spoilage_data(
             )
     return list_of_spoilage_values
 
-def shrink_graph(
-  keys=None
-):
+
+def shrink_graph(keys=None):
     args: Namespace = getArgparse()
     if args.upper_window_bound != None:
         if args.lower_window_bound != None:
@@ -208,6 +210,7 @@ def shrink_graph(
     else:
         if args.lower_window_bound != None:
             plt.xlim(args.lower_window_bound, len(keys))
+
 
 def plot_IssueSpoilagePerDay(
     pregeneratedData: list,
@@ -341,6 +344,7 @@ def fillDictBasedOnKeyValue(
             pb.next()
 
     return data
+
 
 # def derivative(
 #     x_values=None,
