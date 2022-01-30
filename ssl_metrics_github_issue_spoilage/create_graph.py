@@ -84,12 +84,12 @@ def issue_processor(filename: str) -> list:
         print(f"{filename} does not exist.")
         quit(4)
 
-    day0: datetime = parse(issues[0]["created_at"]).replace(tzinfo=None)
+    day0: datetime = parse(issues["created_at"]["0"]).replace(tzinfo=None)
     dayN: datetime = datetime.today().replace(tzinfo=None)
     data: list = []
 
     issue: dict
-    for issue in issues:
+    for i in range(len(list((issues["number"].keys())))):
         value: dict = {
             "issue_number": None,
             "created_at": None,
@@ -99,25 +99,23 @@ def issue_processor(filename: str) -> list:
             "state": None,
         }
 
-        value["issue_number"] = issue["number"]
-        value["created_at"] = issue["created_at"]
-        value["state"] = issue["state"]
+        value["issue_number"] = issues["number"][str(i)]
+        value["created_at"] = issues["created_at"][str(i)]
+        value["state"] = issues["state"][str(i)]
 
-        if issue["closed_at"] is None:
+        if issues["closed_at"][str(i)] is None:
             value["closed_at"] = dayN.strftime("%Y-%m-%dT%H:%M:%SZ")
         else:
-            value["closed_at"] = issue["closed_at"]
+            value["closed_at"] = issues["closed_at"][str(i)]
 
-        createdAtDay: datetime = parse(issue["created_at"]).replace(tzinfo=None)
+        createdAtDay: datetime = parse(issues["created_at"][str(i)]).replace(tzinfo=None)
 
         value["created_at_day"] = (createdAtDay - day0).days
 
         if value["state"] == "open":
             value["closed_at_day"] = (dayN - day0).days
         else:
-            value["closed_at_day"] = (
-                    parse(issue["closed_at"]).replace(tzinfo=None) - day0
-            ).days
+            value["closed_at_day"] = (parse(issues["closed_at"][str(i)]).replace(tzinfo=None) - day0).days
 
         data.append(value)
 
