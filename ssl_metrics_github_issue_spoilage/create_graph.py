@@ -177,7 +177,7 @@ def issue_spoilage_data(
                 }
             )
         else:
-            temp_set = data.overlap(i - 1, i)
+            temp_set = data.overlap(i - 1, i) # can change the step size by making the -1 a variable and chaning the top if statement overlap to 0, step size
             proc_overlap = []
             for issue in temp_set:
                 # if issue.data["state"] == "open":
