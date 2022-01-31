@@ -38,7 +38,7 @@ def getArgparse() -> Namespace:
         help="The filename of the output graph of closed issues",
         type=str,
         required=False,
-        default="closed.png"
+        default="closed.png",
     )
     parser.add_argument(
         "-i",
@@ -53,7 +53,7 @@ def getArgparse() -> Namespace:
         help="The filename of the output graph of spoiled issues",
         type=str,
         required=False,
-        default="spoilage.png"
+        default="spoilage.png",
     )
     parser.add_argument(
         "-o",
@@ -61,7 +61,7 @@ def getArgparse() -> Namespace:
         help="The filename of the output graph of open issues",
         type=str,
         required=False,
-        default="open.png"
+        default="open.png",
     )
     parser.add_argument(
         "-x",
@@ -69,7 +69,7 @@ def getArgparse() -> Namespace:
         help="The filename of the joint output graph of open and closed issues",
         type=str,
         required=False,
-        default="default.png"
+        default="default.png",
     )
 
     return parser.parse_args()
@@ -111,14 +111,18 @@ def issue_processor(filename: str) -> list:
         else:
             value["closed_at"] = issues["closed_at"][str(i)]
 
-        createdAtDay: datetime = parse(issues["created_at"][str(i)]).replace(tzinfo=None)
+        createdAtDay: datetime = parse(issues["created_at"][str(i)]).replace(
+            tzinfo=None
+        )
 
         value["created_at_day"] = (createdAtDay - day0).days
 
         if value["state"] == "open":
             value["closed_at_day"] = (dayN - day0).days
         else:
-            value["closed_at_day"] = (parse(issues["closed_at"][str(i)]).replace(tzinfo=None) - day0).days
+            value["closed_at_day"] = (
+                parse(issues["closed_at"][str(i)]).replace(tzinfo=None) - day0
+            ).days
 
         data.append(value)
 
@@ -181,7 +185,9 @@ def issue_spoilage_data(
                 }
             )
         else:
-            temp_set = data.overlap(i - 1, i) # can change the step size by making the -1 a variable and chaning the top if statement overlap to 0, step size
+            temp_set = data.overlap(
+                i - 1, i
+            )  # can change the step size by making the -1 a variable and chaning the top if statement overlap to 0, step size
             proc_overlap = []
             for issue in temp_set:
                 # if issue.data["state"] == "open":
