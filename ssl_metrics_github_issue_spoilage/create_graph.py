@@ -1,12 +1,10 @@
 import json
 from argparse import ArgumentParser, Namespace
-from collections import KeysView  # had to import this
 from datetime import datetime
-from json import load
 from os.path import exists
-from typing import Any  # had to import this
+from typing import Any
+
 import matplotlib.pyplot as plt
-import numpy as np
 from dateutil.parser import parse
 from intervaltree import IntervalTree
 from matplotlib.figure import Figure
@@ -39,7 +37,8 @@ def getArgparse() -> Namespace:
         "--closed-issues-graph-filename",
         help="The filename of the output graph of closed issues",
         type=str,
-        required=True,
+        required=False,
+        default="closed.png",
     )
     parser.add_argument(
         "-i",
@@ -53,24 +52,28 @@ def getArgparse() -> Namespace:
         "--line-of-issues-spoilage-filename",
         help="The filename of the output graph of spoiled issues",
         type=str,
-        required=True,
+        required=False,
+        default="spoilage.png",
     )
     parser.add_argument(
         "-o",
         "--open-issues-graph-filename",
         help="The filename of the output graph of open issues",
         type=str,
-        required=True,
+        required=False,
+        default="open.png",
     )
     parser.add_argument(
         "-x",
         "--joint-graph-filename",
         help="The filename of the joint output graph of open and closed issues",
         type=str,
-        required=True,
+        required=False,
+        default="default.png",
     )
 
     return parser.parse_args()
+
 
 def issue_processor(filename: str) -> list:
 
@@ -108,18 +111,23 @@ def issue_processor(filename: str) -> list:
         else:
             value["closed_at"] = issues["closed_at"][str(i)]
 
-        createdAtDay: datetime = parse(issues["created_at"][str(i)]).replace(tzinfo=None)
+        createdAtDay: datetime = parse(issues["created_at"][str(i)]).replace(
+            tzinfo=None
+        )
 
         value["created_at_day"] = (createdAtDay - day0).days
 
         if value["state"] == "open":
             value["closed_at_day"] = (dayN - day0).days
         else:
-            value["closed_at_day"] = (parse(issues["closed_at"][str(i)]).replace(tzinfo=None) - day0).days
+            value["closed_at_day"] = (
+                parse(issues["closed_at"][str(i)]).replace(tzinfo=None) - day0
+            ).days
 
         data.append(value)
 
     return data
+
 
 # def loadJSON(filename: str) -> list:
 #     try:
@@ -177,7 +185,9 @@ def issue_spoilage_data(
                 }
             )
         else:
-            temp_set = data.overlap(i - 1, i) # can change the step size by making the -1 a variable and chaning the top if statement overlap to 0, step size
+            temp_set = data.overlap(
+                i - 1, i
+            )  # can change the step size by making the -1 a variable and chaning the top if statement overlap to 0, step size
             proc_overlap = []
             for issue in temp_set:
                 # if issue.data["state"] == "open":
@@ -194,9 +204,8 @@ def issue_spoilage_data(
             )
     return list_of_spoilage_values
 
-def shrink_graph(
-  keys=None
-):
+
+def shrink_graph(keys=None):
     args: Namespace = getArgparse()
     if args.upper_window_bound != None:
         if args.lower_window_bound != None:
@@ -206,6 +215,7 @@ def shrink_graph(
     else:
         if args.lower_window_bound != None:
             plt.xlim(args.lower_window_bound, len(keys))
+
 
 def plot_IssueSpoilagePerDay(
     pregeneratedData: list,
@@ -317,7 +327,7 @@ def fillDictBasedOnKeyValue(
     dictionary: dict, tree: IntervalTree, key: str, value: Any
 ) -> dict:
     data: dict = {}
-    keys: KeysView = dictionary.keys()
+    keys = dictionary.keys()
 
     maxKeyValue: int = max(keys)
     minKeyValue: int = min(keys)
@@ -339,6 +349,7 @@ def fillDictBasedOnKeyValue(
             pb.next()
 
     return data
+
 
 # def derivative(
 #     x_values=None,
