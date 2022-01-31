@@ -37,7 +37,8 @@ def getArgparse() -> Namespace:
         "--closed-issues-graph-filename",
         help="The filename of the output graph of closed issues",
         type=str,
-        required=True,
+        required=False,
+        default="closed.png"
     )
     parser.add_argument(
         "-i",
@@ -51,21 +52,24 @@ def getArgparse() -> Namespace:
         "--line-of-issues-spoilage-filename",
         help="The filename of the output graph of spoiled issues",
         type=str,
-        required=True,
+        required=False,
+        default="spoilage.png"
     )
     parser.add_argument(
         "-o",
         "--open-issues-graph-filename",
         help="The filename of the output graph of open issues",
         type=str,
-        required=True,
+        required=False,
+        default="open.png"
     )
     parser.add_argument(
         "-x",
         "--joint-graph-filename",
         help="The filename of the joint output graph of open and closed issues",
         type=str,
-        required=True,
+        required=False,
+        default="default.png"
     )
 
     return parser.parse_args()
