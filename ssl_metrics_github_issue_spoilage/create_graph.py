@@ -1,3 +1,4 @@
+import json
 from argparse import ArgumentParser, Namespace
 from collections import KeysView  # had to import this
 from datetime import datetime
@@ -71,14 +72,62 @@ def getArgparse() -> Namespace:
 
     return parser.parse_args()
 
+def issue_processor(filename: str) -> list:
 
-def loadJSON(filename: str) -> list:
+    issues: list = None
+
     try:
-        with open(file=filename, mode="r") as jsonFile:
-            return load(jsonFile)
-    except FileExistsError:
+        with open(file=filename, mode="r") as file:
+            issues: list = json.load(file)
+            file.close()
+    except FileNotFoundError:
         print(f"{filename} does not exist.")
-        quit(1)
+        quit(4)
+
+    day0: datetime = parse(issues["created_at"]["0"]).replace(tzinfo=None)
+    dayN: datetime = datetime.today().replace(tzinfo=None)
+    data: list = []
+
+    issue: dict
+    for i in range(len(list((issues["number"].keys())))):
+        value: dict = {
+            "issue_number": None,
+            "created_at": None,
+            "created_at_day": None,
+            "closed_at": None,
+            "closed_at_day": None,
+            "state": None,
+        }
+
+        value["issue_number"] = issues["number"][str(i)]
+        value["created_at"] = issues["created_at"][str(i)]
+        value["state"] = issues["state"][str(i)]
+
+        if issues["closed_at"][str(i)] is None:
+            value["closed_at"] = dayN.strftime("%Y-%m-%dT%H:%M:%SZ")
+        else:
+            value["closed_at"] = issues["closed_at"][str(i)]
+
+        createdAtDay: datetime = parse(issues["created_at"][str(i)]).replace(tzinfo=None)
+
+        value["created_at_day"] = (createdAtDay - day0).days
+
+        if value["state"] == "open":
+            value["closed_at_day"] = (dayN - day0).days
+        else:
+            value["closed_at_day"] = (parse(issues["closed_at"][str(i)]).replace(tzinfo=None) - day0).days
+
+        data.append(value)
+
+    return data
+
+# def loadJSON(filename: str) -> list:
+#     try:
+#         with open(file=filename, mode="r") as jsonFile:
+#             return load(jsonFile)
+#     except FileExistsError:
+#         print(f"{filename} does not exist.")
+#         quit(1)
 
 
 def createIntervalTree(data: list, filename: str) -> IntervalTree:
@@ -128,7 +177,7 @@ def issue_spoilage_data(
                 }
             )
         else:
-            temp_set = data.overlap(i - 1, i)
+            temp_set = data.overlap(i - 1, i) # can change the step size by making the -1 a variable and chaning the top if statement overlap to 0, step size
             proc_overlap = []
             for issue in temp_set:
                 # if issue.data["state"] == "open":
@@ -312,7 +361,7 @@ def main() -> None:
         print("Invalid input file type. Input file must be JSON")
         quit(1)
 
-    jsonData: list = loadJSON(filename=args.input)
+    jsonData: list = issue_processor(filename=args.input)
 
     tree: IntervalTree = createIntervalTree(data=jsonData, filename=args.input)
 

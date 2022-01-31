@@ -132,3 +132,7 @@ dmypy.json
 *.json
 *.png
 *.pdf
+
+*.idea/
+!.zenodo.json
+*pyvenv.cfg

@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="ssl-metrics-github-issue_spoilage",
+    name="ssl-metrics-github-issue-spoilage",
     packages=["ssl_metrics_github_issue_spoilage"],
     version=version.version(),
     description="SSL Metrics - GitHub Issues Analysis",
@@ -43,8 +43,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "ssl-metrics-github-issue-spoilage-collect-data = ssl_metrics_github_issue_spoilage.github_issues:main",
-            "ssl-metrics-github-issue-spoilage-preprocess-data = ssl_metrics_github_issue_spoilage.issue_spoilage_preprocessor:main",
+            "ssl-metrics-github-issue-spoilage-compute = ssl_metrics_github_issue_spoilage.main:main",
             "ssl-metrics-github-issue-spoilage-graph = ssl_metrics_github_issue_spoilage.create_graph:main",
         ]
     },
