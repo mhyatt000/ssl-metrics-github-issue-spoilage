@@ -1,6 +1,6 @@
 {
     "upload_type": "software",
-    "title": "SoftwareSystemsLaboratory/ssl-metrics",
+    "title": "SoftwareSystemsLaboratory/ssl-metrics-github-issue-spoilage",
     "creators": [
         {
         "name": "Palmer, Jake",
@@ -23,7 +23,7 @@
         "orcid": "0000-0002-0452-5571"
         }
     ],
-    "description": "A helper package to install all Software Systems Laboratory Metrics tools",
+    "description": "A python tool to calculate the issue spoilage of a GitHub repository",
     "access_right": "open",
     "license": "BSD-3-Clause",
     "prereserve_doi": true,
